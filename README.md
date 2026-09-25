@@ -186,7 +186,7 @@ Features ถูกสร้างโดยใช้ข้อมูลในอ�
 ---
 ## 🚀 Live Demo
 
-👉 [Try the Live Dashboard](https://retail-demand-forecasting-md6ngczbeytuijyctbduon.streamlit.app/)
+👉 [Try the Live Dashboard](https://retail-demand-forecasting-np7geakwxeutzqwh57r3hb.streamlit.app/)
 
 # 🤖 Machine Learning
 
