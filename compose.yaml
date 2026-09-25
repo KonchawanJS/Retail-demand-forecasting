@@ -1,0 +1,32 @@
+services:
+  pipeline:
+    build: .
+    command: ["python", "-m", "retail.cli", "demo", "--root", "/workspace"]
+    volumes:
+      - retail-data:/workspace
+  api:
+    build: .
+    depends_on:
+      pipeline:
+        condition: service_completed_successfully
+    ports:
+      - "8000:8000"
+    volumes:
+      - retail-data:/workspace:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+  dashboard:
+    build: .
+    command: ["python", "-m", "streamlit", "run", "app/dashboard.py", "--server.address=0.0.0.0", "--server.port=8501", "--browser.gatherUsageStats=false"]
+    depends_on:
+      pipeline:
+        condition: service_completed_successfully
+    ports:
+      - "8501:8501"
+    volumes:
+      - retail-data:/workspace:ro
+volumes:
+  retail-data:

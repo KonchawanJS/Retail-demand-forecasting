@@ -1,0 +1,53 @@
+{
+  "data_source": "user_csv",
+  "selected_model": "ml",
+  "selection_rule": "Lowest aggregate validation MAE; holdout excluded from selection",
+  "trained_through": "2011-12-09",
+  "skus": 20,
+  "rows": 14780,
+  "horizon": 28,
+  "seed": 42,
+  "data_sha256": "07257661565ed10a838eda36fd2ba53c5112c58b60916335bb2d2d9ab252f532",
+  "python_version": "3.12.10",
+  "sklearn_version": "1.8.0",
+  "scores": [
+    {
+      "split": "holdout",
+      "model": "ml",
+      "mae": 33.63956581829505,
+      "wape": 0.8009420432927392,
+      "bias": 11.189175975688318,
+      "n": 560
+    },
+    {
+      "split": "holdout",
+      "model": "seasonal_naive",
+      "mae": 50.54642857142857,
+      "wape": 1.2034863945578231,
+      "bias": 9.378571428571428,
+      "n": 560
+    },
+    {
+      "split": "validation",
+      "model": "ml",
+      "mae": 42.225996406537746,
+      "wape": 0.9411752666783871,
+      "bias": 8.10487907344284,
+      "n": 1120
+    },
+    {
+      "split": "validation",
+      "model": "seasonal_naive",
+      "mae": 55.799107142857146,
+      "wape": 1.2437063424147745,
+      "bias": 3.1205357142857144,
+      "n": 1120
+    }
+  ],
+  "limitations": [
+    "Observed sales are a proxy for demand",
+    "No stockout correction",
+    "Inventory costs and stock are hypothetical",
+    "No future promotions or prices"
+  ]
+}
