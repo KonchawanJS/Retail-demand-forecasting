@@ -24,14 +24,47 @@ st.markdown("""<style>
 h1 {letter-spacing: -1px; color: #16324f;}
 </style>""", unsafe_allow_html=True)
 root = Path(os.getenv("RETAIL_ROOT", str(PROJECT_ROOT)))
+
+required_files = [
+    root / "reports" / "metrics.json",
+    root / "artifacts" / "daily_sales.csv",
+    root / "artifacts" / "forecasts.csv",
+]
+
+if not all(file.exists() for file in required_files):
+    with st.spinner(
+        "กำลังเตรียมข้อมูลและสร้าง Demand Forecast ครั้งแรก "
+        "อาจใช้เวลาสักครู่..."
+    ):
+        result = subprocess.run(
+            [sys.executable, "-m", "retail.cli", "demo"],
+            cwd=str(PROJECT_ROOT),
+            capture_output=True,
+            text=True,
+        )
+
+    if result.returncode != 0:
+        st.error("ไม่สามารถสร้างข้อมูล Forecast ได้")
+        st.code(result.stderr)
+        st.stop()
+
+    # ตรวจอีกครั้งหลัง pipeline ทำงาน
+    missing_files = [
+        str(file.relative_to(root))
+        for file in required_files
+        if not file.exists()
+    ]
+
+    if missing_files:
+        st.error("Pipeline ทำงานแล้ว แต่ยังไม่พบไฟล์ที่จำเป็น")
+        st.code("\n".join(missing_files))
+        st.stop()
+
+    st.success("สร้าง Demand Forecast สำเร็จ")
 st.caption("STOCKWISE  /  FORECAST → PLAN → EVALUATE")
 st.title("Retail demand & replenishment")
 st.write("พยากรณ์ยอดขายและวางแผนสั่งซื้อ พร้อมตรวจสอบผลและสมมติฐาน")
-try:
-    service = RetailService(root)
-except FileNotFoundError:
-    st.info("ยังไม่มีผลพยากรณ์ — รัน `python -m retail.cli demo` ก่อนเปิด dashboard")
-    st.stop()
+service = RetailService(root)
 meta = service.meta
 if meta["data_source"] == "synthetic_demo":
     st.warning("DEMO DATA · ข้อมูลจำลองสำหรับสาธิต ผลลัพธ์นี้ไม่ใช่ผลการดำเนินงานของธุรกิจจริง")
