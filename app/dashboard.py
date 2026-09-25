@@ -3,6 +3,7 @@
 import os
 import sys
 from pathlib import Path
+import subprocess
 
 # --------------------------------------------------
 # Make src/ importable on Streamlit Community Cloud
@@ -15,7 +16,7 @@ if str(SRC_DIR) not in sys.path:
 
 import pandas as pd
 import streamlit as st
-import subprocess
+
 from retail.service import RetailService
 
 st.set_page_config(page_title="Stockwise | Retail Planning", page_icon="📦", layout="wide")
