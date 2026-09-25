@@ -184,6 +184,9 @@ Machine Learning
 Features ถูกสร้างโดยใช้ข้อมูลในอดีตเท่านั้น เพื่อป้องกัน **Data Leakage**
 
 ---
+## 🚀 Live Demo
+
+👉 [Try the Live Dashboard](https://retail-demand-forecasting-md6ngczbeytuijyctbduon.streamlit.app/)
 
 # 🤖 Machine Learning
 
