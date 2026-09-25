@@ -2,12 +2,9 @@
 
 import os
 import sys
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
-# --------------------------------------------------
-# Make src/ importable on Streamlit Community Cloud
-# --------------------------------------------------
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SRC_DIR = PROJECT_ROOT / "src"
 
